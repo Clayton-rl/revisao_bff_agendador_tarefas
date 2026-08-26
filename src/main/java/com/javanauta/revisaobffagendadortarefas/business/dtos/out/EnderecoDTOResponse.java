@@ -1,4 +1,4 @@
-package com.javanauta.revisaobffagendadortarefas.business.dtos;
+package com.javanauta.revisaobffagendadortarefas.business.dtos.out;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class EnderecoDTO {
+public class EnderecoDTOResponse {
 
     private Long id;
     private Long numero;

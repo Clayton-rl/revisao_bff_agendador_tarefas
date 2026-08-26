@@ -1,4 +1,4 @@
-package com.javanauta.revisaobffagendadortarefas.business.dtos;
+package com.javanauta.revisaobffagendadortarefas.business.dtos.out;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TelefoneDTO {
+public class TelefoneDTOResponse {
 
     private Long id;
     private String numero;
