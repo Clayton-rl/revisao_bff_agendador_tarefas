@@ -29,7 +29,7 @@ public class CronService {
 
     @Scheduled(cron = "${cron.horario}")
     public void buscaTarefaProximaHora() {
-        String token = login(converterParaLoginDTORequest());
+        String token = login(converterParaDTORequest());
         log.info("iniciada a busca de tarefas");
         LocalDateTime horaFutura = LocalDateTime.now().plusHours(1);
         LocalDateTime horaFuturaMaisCinco = LocalDateTime.now().plusHours(1).plusMinutes(5);
@@ -40,7 +40,7 @@ public class CronService {
         listaTarefas.forEach(tarefa -> {
             emailService.enviaEmail(tarefa);
             log.info("Email enviado para o usuáro " + tarefa.getEmailUsuario());
-            tarefaService.alteraStatusNotificacao(StatusNotificacaoEnum.PENDENTE, tarefa.getId(), token);
+            tarefaService.alteraStatusNotificacao(StatusNotificacaoEnum.NOTIFICADO , tarefa.getId(), token);
         });
         log.info("Finalizada a busca e notificação de tarefas");
     }
@@ -49,7 +49,7 @@ public class CronService {
         return usuarioService.loginUsuario(dto);
     }
 
-    public LoginDTORequest converterParaLoginDTORequest() {
+    public LoginDTORequest converterParaDTORequest() {
         return LoginDTORequest.builder()
                 .email(email)
                 .senha(senha)
