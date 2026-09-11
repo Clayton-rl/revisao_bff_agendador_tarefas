@@ -7,6 +7,7 @@ import com.javanauta.revisaobffagendadortarefas.business.dtos.in.UsuarioDTOReque
 import com.javanauta.revisaobffagendadortarefas.business.dtos.out.EnderecoDTOResponse;
 import com.javanauta.revisaobffagendadortarefas.business.dtos.out.TelefoneDTOResponse;
 import com.javanauta.revisaobffagendadortarefas.business.dtos.out.UsuarioDTOResponse;
+import com.javanauta.revisaobffagendadortarefas.business.dtos.out.ViaCepDTOResponse;
 import com.javanauta.revisaobffagendadortarefas.infrastructure.client.UsuarioClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -52,5 +53,9 @@ public class UsuarioService {
 
     public TelefoneDTOResponse cadastraTelefone(String token, TelefoneDTORequest dto) {
         return client.cadastraTelefone(dto, token);
+    }
+
+    public ViaCepDTOResponse buscaDadosPorCep(String cep) {
+        return client.buscaDadosCep(cep);
     }
 }

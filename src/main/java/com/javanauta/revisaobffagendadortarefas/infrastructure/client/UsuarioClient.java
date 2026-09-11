@@ -8,6 +8,7 @@ import com.javanauta.revisaobffagendadortarefas.business.dtos.in.UsuarioDTOReque
 import com.javanauta.revisaobffagendadortarefas.business.dtos.out.EnderecoDTOResponse;
 import com.javanauta.revisaobffagendadortarefas.business.dtos.out.TelefoneDTOResponse;
 import com.javanauta.revisaobffagendadortarefas.business.dtos.out.UsuarioDTOResponse;
+import com.javanauta.revisaobffagendadortarefas.business.dtos.out.ViaCepDTOResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,4 +50,7 @@ public interface UsuarioClient {
     @PostMapping("/telefone")
     TelefoneDTOResponse cadastraTelefone(@RequestBody TelefoneDTORequest dto,
                                          @RequestHeader("Authorization") String token);
+
+    @GetMapping("/endereco/{cep}")
+    ViaCepDTOResponse buscaDadosCep(@PathVariable("cep") String cep);
 }
