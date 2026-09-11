@@ -1,0 +1,57 @@
+services:
+  revisao_agendador_tarefas:
+    build: ..\revisao_agendador_tarefas
+    container_name: revisao_agendador_tarefas
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/database_agendador
+    depends_on:
+      - mongo
+  revisao-bff-agendador-tarefas:
+    build: .
+    container_name: revisao-bff-agendador-tarefas
+    ports:
+      - "8083:8083"
+    environment:
+      - USUARIO_URL=revisao_usuario:8080/usuario
+      - AGENDADOR_TAREFAS_URL=revisao_agendador-tarefas:8081/tarefa
+      - NOTIFICACAO_URL=revisao-notificacao:8082/email
+  revisao_usuario:
+    build: ..\revisao_usuario
+    container_name: revisao_usuario
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/db_usuario
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+    depends_on:
+      - postgres
+  revisao-notificacao:
+    build: ..\revisao-notificacao
+    container_name: revisao-notificacao
+    ports:
+      - "8082:8082"
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: no
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: db_usuario
+    ports:
+      - "5433:5432"
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    restart: no
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: database_agendador
+
+networks:
+  default:
+    driver: bridge
